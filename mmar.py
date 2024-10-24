@@ -56,8 +56,8 @@ def calculate_scaling_exponent(delta, x_t, q):
     # ii) Calculating the absolute difference between each point and the point delta[j] steps ahead
     # iii) Summing the q[k] power of these differences
     for k in range (0, len(q)):
-        if k%30==0: # dividable by 30
-            print("calculating q=" + str(k) + ' out of ' + str(len(q)-1))
+        # if k%30==0: # dividable by 30
+        #     print("calculating q=" + str(k) + ' out of ' + str(len(q)-1))
             
         for j in range (0,len(delta)):
             
@@ -72,7 +72,7 @@ def calculate_scaling_exponent(delta, x_t, q):
     for i in range(len(delta)-1,-1,-1):
         Fq.rename(columns={Fq.columns[i]:delta[i]}, inplace=True)
 
-    print("Finished calculating the partition values Fq")
+    # print("Finished calculating the partition values Fq")
 
     # Power-law regression on log Fq(q, delta) vs log delta to get scaling exponent τ(q)
     # If the signal has scaling properties, Fq will follow a power law:
@@ -112,9 +112,9 @@ def estimate_multifractal_spectrum(tau_q_list:list, q:list, start_of_list:int, e
     F_A.rename(columns={F_A.columns[0]:"f(a)"}, inplace=True)
     F_A['p'] = p
 
-    print("Using the range of q's from " + str(q[start_of_list]) + " to " + str(q[end_of_list]) + ":")
+    # print("Using the range of q's from " + str(q[start_of_list]) + " to " + str(q[end_of_list]) + ":")
     # tau_q_estimated are the coefficients (a,b,c) from fitting the quadratic model to τ(q).
-    print("The estimated parameters for tau(q) are: \n" + str(tau_q_estimated))
+    # print("The estimated parameters for tau(q) are: \n" + str(tau_q_estimated))
     
     # the three estimated parameters for f(a) are derived from the Legendre transform relations:
     # i) 1/(4*a) is the width of the f(α) spectrum
@@ -124,7 +124,7 @@ def estimate_multifractal_spectrum(tau_q_list:list, q:list, start_of_list:int, e
     # iii) (-4ac+b^2)/(4*a) is related to asymmetry in f(α)
     asymmetry_of_spectrum = (-4*a*c+b**2)/(4*a)
     # they give key properties of f(α) spectrum
-    print("\nThus, the estimated parameters for f(a) are: \n width_of_spectrum: " + str(width_of_spectrum) + ", \n holder_exponent: "  + str(holder_exponent) + ", \n asymmetry_of_spectrum: "+ str(asymmetry_of_spectrum))
+    # print("\nThus, the estimated parameters for f(a) are: \n width_of_spectrum: " + str(width_of_spectrum) + ", \n holder_exponent: "  + str(holder_exponent) + ", \n asymmetry_of_spectrum: "+ str(asymmetry_of_spectrum))
 
     return F_A, (width_of_spectrum, holder_exponent, asymmetry_of_spectrum)
 
@@ -187,10 +187,10 @@ def calculate_magnitude_parameter(initial_value:float, eps:float, steps:float, n
             new_fbm_simulation = new_fbm_class.fbm()
             std_list.append(np.std(new_fbm_simulation))
         diff = real_std - np.median(std_list)
-        print('Diff: ', diff)
+        # print('Diff: ', diff)
         if abs(diff) > eps:
             magnitude_parameter += diff * steps
-            print('new magnitude_parameter:', magnitude_parameter)
+            # print('new magnitude_parameter:', magnitude_parameter)
 
     return  magnitude_parameter
 
